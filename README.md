@@ -1,8 +1,8 @@
 ### 安装
 ~ bash 
-$ cd <project-name>
-$ npm install
-$ npm run dev
+$ cd <project-name>   
+$ npm install   
+$ npm run dev   
 ~
 ### 应用现在运行在 http://localhost:3000
 
