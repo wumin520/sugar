@@ -1,8 +1,10 @@
-# 开始
+# 介绍
 
-A [Nuxt.js](https://github.com/nuxt/nuxt.js) starter project template without the distraction of a complicated development environment.
+Nuxt.js 是一个基于 Vue.js 的通用应用框架。
 
-Live demo: https://starter.nuxtjs.org
+通过对客户端/服务端基础架构的抽象组织，Nuxt.js 主要关注的是应用的 UI渲染。
+
+[Nuxt.js](https://github.com/nuxt/nuxt.js)
 
 ## 环境要求
 
@@ -10,16 +12,12 @@ Make sure to have `node 8.0+` and `npm 5.0+` installed
 
 ## 安装
 
-This is a project template for [vue-cli](https://github.com/vuejs/vue-cli).
-
 ``` bash
-$ vue init nuxt-community/starter-template my-project  
-$ cd my-project                     
+$ git clone git@git.corp.qianka.com:wu.min/sugar.git
+$ cd sugar                     
 # install dependencies
 $ npm install # Or yarn install
 ```
-
-> Make sure to use a version of vue-cli >= 2.1 (`vue -V`).
 
 ## 运行
 
