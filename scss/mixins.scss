@@ -1,0 +1,42 @@
+@import 'variables';
+@import 'global';
+@import 'font';
+
+@mixin font-din() {
+  font-family: "DINMittelschriftStd";
+}
+
+@mixin font-light() {
+  font-family: "PingFangSC-Light", $font-stack;
+}
+
+@mixin font-regular() {
+  font-family: "PingFangSC-Regular", $font-stack;
+  font-weight: 400;
+}
+
+@mixin font-medium() {
+  font-family: "PingFangSC-Medium", $font-stack;
+  font-weight: 500;
+}
+
+@mixin font-bold() {
+  font-family: "PingFangSC-Bold", $font-stack;
+  font-weight: 600;
+}
+
+@mixin font-semibold() {
+  font-family: "PingFangSC-Semibold", $font-stack;
+}
+
+@mixin font-hzgb() {
+  font-family: "hzgb", $font-stack;
+}
+
+@mixin font-AppleSystemUIFont() {
+  font-family: "AppleSystemUIFont", $font-stack;
+}
+
+@mixin font-SFNSDisplay-Regular() {
+  font-family: "SFNSDisplay-Regula", $font-stack;
+}
