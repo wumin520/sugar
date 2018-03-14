@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <detail-header :on-back-button-click="back" :has-search="false" title="联系商家"></detail-header>
     <div style="padding: 32px 0;background: #fff;">
         <h5>请添加微信公众号主动联系商家</h5>
         <h5 class="mrg-t4">完成录取并上岗</h5>
@@ -139,11 +140,21 @@
 }
 </style>
 <script>
+import DetailHeader from '~/components/DetailHeader.vue'
+
 export default {
   layout: 'gray',
+  components: {
+    DetailHeader
+  },
   data () {
     return {
-      isShowPopup: true
+      isShowPopup: false
+    }
+  },
+  methods: {
+    back () {
+      this.$router.push('/details/')
     }
   }
 }
