@@ -55,7 +55,7 @@ export default {
 
     div {
       display: inline-block;
-      width: 93px;
+      width: 25%;
       background: #ffffff;      
       text-align: center;      
     }
