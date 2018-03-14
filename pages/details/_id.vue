@@ -18,7 +18,7 @@
 
     <div class="detail-detail">
       <div class="title">职位描述</div>
-      <div class="description" v-text="data.jianpin_detail"></div>
+      <div class="description" :class="{'hide': !is_more}" v-text="data.jianpin_detail"></div>
       <div class="btn-more" @click="moreDetail"><span v-text="is_more?'收起': '展开'"></span><img class="btn-more-img" :src="is_more?'//assets.qkcdn.com/images/396f6c3c0fd033f6be32cc660001d007.png': '//assets.qkcdn.com/images/949066b0ae6761f707d74a6c45b0e014.png'"></div>
       <div class="clear"></div>
       <div class="income">
@@ -27,7 +27,7 @@
       </div>
     </div>
 
-    <div class="detail-more" v-if="is_more">
+    <div class="detail-more">
       <div class="detail-time">
         <div class="title">工作时间</div>
         <div class="content" v-text="data.work_time"></div>
@@ -38,12 +38,12 @@
       </div>
     </div>
 
-    <div class="detail-more detail-co" v-if="is_more">
+    <div class="detail-more detail-co">
       <span class="name-title">公司名称</span>
       <span class="name" v-text="data.company"></span>
     </div>
 
-    <div class="btn-commit">我要报名</div>
+    <div class="btn-commit" @click="btnCommit()">我要报名</div>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -134,6 +134,11 @@
         font-size: 13px;
         color: #B5B5B5;
         margin-bottom: 14px;
+        overflow: hidden;
+
+        &.hide {
+          height: 72px;
+        }
       }
 
       .btn-more {
@@ -234,8 +239,8 @@
 </style>
 <script>
   import DetailHeader from '~/components/DetailHeader'
-  //  import {URI_DETAIL} from '~/services/contants'
   import {queryJobDetail} from '~/services/login'
+  import storage from '~/services/storage'
 
   export default {
     components: {
@@ -254,6 +259,7 @@
       this.jobDetail()
     },
     methods: {
+      // API
       jobDetail () {
         queryJobDetail(this.jobId)
           .then(response => {
@@ -261,6 +267,10 @@
           })
           .then(data => {
             this.data = data.payload
+            if (this.data.jump_type === 2) {
+              storage.setStorage('DETAIL_WECHAT', this.data.jump_url)
+              storage.setStorage('DETAIL_ID', this.jobId)
+            }
           })
           .catch(err => {
             if (err.err_msg) {
@@ -269,9 +279,22 @@
           })
       },
 
+      // 展开 收起
       moreDetail () {
         this.is_more = !this.is_more
       },
+
+      btnCommit () {
+        if (this.data) {
+          if (this.data.jump_type === 1) {
+            window.location.herf = this.data.jump_url
+          }
+          if (this.data.jump_type === 2) {
+            this.$router.push('/contact')
+          }
+        }
+      },
+
       back () {
         this.$router.go(-1)
       }
