@@ -6,41 +6,41 @@
       :on-back-button-click="back"
     ></DetailHeader>
     <div class="detail-title">
-      <p class="title" v-text="payload.title"></p>
-      <p class="salary"><span class="num" v-text="payload.currency"></span><span v-text="payload.currency_unit"></span></p>
-      <div class="label">
-        <div class="label-item" v-text="payload.jiexi_type"></div>
-        <div class="label-item" v-text="payload.jianpin_person"></div>
+      <p class="title" v-text="data.title"></p>
+      <p class="salary"><span class="num" v-text="data.currency"></span><span v-text="data.currency_unit"></span></p>
+      <div class="label" v-if="data">
+        <div class="label-item" v-text="data.jiexi_type"></div>
+        <div class="label-item" v-text="data.jianpin_person"></div>
         <div class="clear"></div>
       </div>
-      <span v-if="payload.tag"><img class="hot" src="//assets.qkcdn.com/images/302d958266ec83b5f0762e3f443400d6.png"></span>
+      <span v-if="data.tag"><img class="hot" src="//assets.qkcdn.com/images/302d958266ec83b5f0762e3f443400d6.png"></span>
     </div>
 
     <div class="detail-detail">
       <div class="title">职位描述</div>
-      <div class="description" v-text="payload.jianpin_detail"></div>
+      <div class="description" v-text="data.jianpin_detail"></div>
       <div class="btn-more" @click="moreDetail"><span v-text="is_more?'收起': '展开'"></span><img class="btn-more-img" :src="is_more?'//assets.qkcdn.com/images/396f6c3c0fd033f6be32cc660001d007.png': '//assets.qkcdn.com/images/949066b0ae6761f707d74a6c45b0e014.png'"></div>
       <div class="clear"></div>
       <div class="income">
         <div class="title">薪资福利</div>
-        <div class="content" v-text="payload.welfare"></div>
+        <div class="content" v-text="data.welfare"></div>
       </div>
     </div>
 
     <div class="detail-more" v-if="is_more">
       <div class="detail-time">
         <div class="title">工作时间</div>
-        <div class="content" v-text="payload.work_time"></div>
+        <div class="content" v-text="data.work_time"></div>
       </div>
       <div class="detail-add">
         <div class="title">工作地点</div>
-        <div class="content" v-text="payload.work_adress"></div>
+        <div class="content" v-text="data.work_adress"></div>
       </div>
     </div>
 
     <div class="detail-more detail-co" v-if="is_more">
       <span class="name-title">公司名称</span>
-      <span class="name" v-text="payload.company"></span>
+      <span class="name" v-text="data.company"></span>
     </div>
 
     <div class="btn-commit">我要报名</div>
@@ -234,6 +234,8 @@
 </style>
 <script>
   import DetailHeader from '~/components/DetailHeader'
+  //  import {URI_DETAIL} from '~/services/contants'
+  import {queryJobDetail} from '~/services/login'
 
   export default {
     components: {
@@ -244,37 +246,34 @@
       return {
         jobId: 0,
         is_more: false,
-        payload: {
-          'id': 1,
-          'title': '标题',
-          'city_name': '城市名',
-          'tag': '标签',
-          'jianpin_type': '招聘方式：1：长期招聘，2：指定时间',
-          'jianpin_starttime': '招聘开始时间',
-          'jianpin_endtime': '招聘结束时间',
-          'currency': '50',
-          'currency_unit': '元/小时',
-          'jiexi_type': '日结',
-          'jianpin_person': '9人',
-          'jianpin_detail': '职位描述',
-          'welfare': '每天结算，50/小时',
-          'work_time': '不限时间地点，随时可做',
-          'work_adress': '全国－不限',
-          'company': '方龙',
-          'jump_url': '跳转的url',
-          'jump_type': '跳转方式：1：URL，2：wechat'
-        }
+        data: ''
       }
     },
     mounted () {
       this.jobId = this.$route.params.id
+      this.jobDetail()
     },
     methods: {
+      jobDetail () {
+        queryJobDetail(this.jobId)
+          .then(response => {
+            return response.data
+          })
+          .then(data => {
+            this.data = data.payload
+          })
+          .catch(err => {
+            if (err.err_msg) {
+              alert(err.err_msg)
+            }
+          })
+      },
+
       moreDetail () {
         this.is_more = !this.is_more
       },
       back () {
-        this.$router.push('/')
+        this.$router.go(-1)
       }
     }
   }
