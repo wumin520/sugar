@@ -12,7 +12,7 @@
           <div v-infinite-scroll="refresh" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
             <job-items :job-list="jobList"></job-items>
           </div>
-          <div class="loading-wrap">
+          <div v-show="isLoading" class="loading-wrap">
             <loading-icon></loading-icon>
           </div>
       </section>
@@ -39,9 +39,11 @@ export default {
   data () {
     return {
       jobList: [],
-      busy: false,
+      isLoading: false,
+      busy: true,
       currentCity: {},
-      cityId: ''
+      cityId: '',
+      lastId: ''
     }
   },
   async asyncData ({ params }) {
@@ -55,30 +57,32 @@ export default {
     this.currentCity = (cityObj && cityObj.city_name) || '全国'
     this.cityId = cityObj.id
 
-    this.fetchJobList(0, 10)
+    this.fetchJobList(0)
   },
   methods: {
-    fetchJobList (offset, pageSize) {
-      let params = {offset, pageSize}
-      if (!this.cityId) {
+    fetchJobList (offset, pagesize = 10) {
+      let params = {offset, pagesize}
+      if (this.cityId) {
         params.city_id = this.cityId
       }
+      this.isLoading = true
       queryJobList(params)
         .then(res => res.data.payload)
         .then(payload => {
-          console.log(payload)
-          this.jobList = payload
+          if (payload.length === 0) {
+            this.busy = true
+          } else {
+            this.busy = false
+            this.jobList.push(...payload)
+          }
+          this.isLoading = false
         })
     },
     refresh () {
       this.busy = true
-      console.log('isme')
-      // setTimeout(() => {
-      //   for (let i = 0; i < 10; i++) {
-      //     this.jobList.push({title: 'mem'})
-      //   }
-      //   this.busy = false
-      // }, 2000)
+      console.log('start loading more data')
+      let offset = this.jobList.length
+      this.fetchJobList(offset)
     },
     forwardTo (name, params) {
       let path = '/' + name

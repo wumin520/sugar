@@ -84,6 +84,7 @@
 import JobItems from '~/components/JobItems.vue'
 import { searchJob } from '../services/job'
 import StorageFactory from '../utils/storage'
+import { KEY_SUGAR_CURRENT_CITY } from '../services/contants'
 
 export default {
   components: {
@@ -92,18 +93,21 @@ export default {
   data () {
     return {
       jobList: [],
-      keywords: ''
+      keywords: '',
+      cityId: ''
     }
   },
   mounted () {
-    console.log('window: ', window)
-    new StorageFactory(window.localStorage).set('me', {id: 1, title: 'me'})
-    console.log(new StorageFactory(window.localStorage).get('me'))
+    let cityObj = new StorageFactory(window.localStorage).get(KEY_SUGAR_CURRENT_CITY)
+    this.cityId = cityObj.id
   },
   methods: {
     searchJob () {
       let keywords = this.keywords
       let params = {keywords, offset: 0, pagesize: 50}
+      if (this.cityId) {
+        params.city_id = this.cityId
+      }
       searchJob(params)
         .then(res => res.data && res.data.payload)
         .then(payload => {
