@@ -11,6 +11,7 @@
 </div>
 </template>
 <script>
+import { queryCitys } from '../services/address'
 export default {
   layout: 'gray',
   data () {
@@ -33,6 +34,12 @@ export default {
         title: '北京'
       }]
     }
+  },
+  mounted () {
+    let res = queryCitys().then(res => {
+      console.log(res)
+    })
+    console.log(res)
   },
   methods: {
     forward (name) {

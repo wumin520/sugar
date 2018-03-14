@@ -6,7 +6,7 @@ module.exports = {
     title: 'nuxtq',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=375, user-scalable=no, initial-scale=1' },
+      { name: 'viewport', content: 'width=375, user-scalable=no' },
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
