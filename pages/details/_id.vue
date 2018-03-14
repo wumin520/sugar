@@ -43,7 +43,7 @@
       <span class="name" v-text="data.company"></span>
     </div>
 
-    <div class="btn-commit">我要报名</div>
+    <div class="btn-commit" @click="btnCommit()">我要报名</div>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -240,6 +240,7 @@
 <script>
   import DetailHeader from '~/components/DetailHeader'
   import {queryJobDetail} from '~/services/login'
+  import storage from '~/services/storage'
 
   export default {
     components: {
@@ -258,6 +259,7 @@
       this.jobDetail()
     },
     methods: {
+      // API
       jobDetail () {
         queryJobDetail(this.jobId)
           .then(response => {
@@ -265,6 +267,10 @@
           })
           .then(data => {
             this.data = data.payload
+            if (this.data.jump_type === 2) {
+              storage.setStorage('DETAIL_WECHAT', this.data.jump_url)
+              storage.setStorage('DETAIL_ID', this.jobId)
+            }
           })
           .catch(err => {
             if (err.err_msg) {
@@ -273,9 +279,22 @@
           })
       },
 
+      // 展开 收起
       moreDetail () {
         this.is_more = !this.is_more
       },
+
+      btnCommit () {
+        if (this.data) {
+          if (this.data.jump_type === 1) {
+            window.location.herf = this.data.jump_url
+          }
+          if (this.data.jump_type === 2) {
+            this.$router.push('/contact')
+          }
+        }
+      },
+
       back () {
         this.$router.go(-1)
       }

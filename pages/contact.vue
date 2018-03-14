@@ -1,15 +1,17 @@
 <template>
   <div class="container">
+    <div id="copyTxt" style="font-size: .3rem;color: transparent;position: absolute; z-index: 0;">{{weChatName}}</div>
     <detail-header :on-back-button-click="back" :has-search="false" title="联系商家"></detail-header>
     <div style="padding: 32px 0;background: #fff;">
         <h5>请添加微信公众号主动联系商家</h5>
         <h5 class="mrg-t4">完成录取并上岗</h5>
-        <div class="weixin-info">
-            <img class="i-weixin" src="//assets.qkcdn.com/images/41956422b7a776b815c55d19d4819d8e.png">weixin110
+        <div class="weixin-info" id="copy" data-clipboard-action="copy" data-clipboard-target="#copyTxt" @click="popCopy()">
+          <img class="i-weixin" src="//assets.qkcdn.com/images/41956422b7a776b815c55d19d4819d8e.png">
+          <span v-text="weChatName"></span>
         </div>
         <div style="font-size: 12px;color: #B5B5B5;text-align: center;">
             <div>打开微信>通讯录>公众号>右上角添加>搜索</div>
-            <div style="margin-top: 2px;">“weixin110”并关注</div>
+            <div style="margin-top: 2px;">“<span v-text="weChatName"></span>”并关注</div>
         </div>
     </div>
     <div class="warm-prompt">温馨提示：正规兼职不会收取任何费用，若收费请提高警惕</div>
@@ -114,18 +116,20 @@
   }
   .weixin-info {
     width: 189px;
-    height: 50px;
+    margin: 22px auto 10px;
     border: 1px dashed #37B32A;
     border-radius: 2px;
-    margin: 22px auto 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 14px 25px;
+    text-align: center;
+    font-family: PingFangSC-Semibold;
+    font-size: 16px;
+    color: #37B32A;
+    word-wrap:break-word;
 
     .i-weixin {
       width: 21px;
-      height: 18px;
       margin-right: 10px;
+      transform: translateY(4px);
     }
   }
   .mrg-t4 {
@@ -141,6 +145,8 @@
 </style>
 <script>
 import DetailHeader from '~/components/DetailHeader.vue'
+import storage from '~/services/storage'
+import Clipboard from 'clipboard'
 
 export default {
   layout: 'gray',
@@ -149,12 +155,37 @@ export default {
   },
   data () {
     return {
+      jobId: 0,
+      weChatName: '',
       isShowPopup: false
     }
   },
+  mounted () {
+    if (storage.getStorage('DETAIL_WECHAT')) {
+      this.weChatName = storage.getStorage('DETAIL_WECHAT')
+    }
+    if (storage.getStorage('DETAIL_ID')) {
+      this.jobId = storage.getStorage('DETAIL_ID')
+    }
+    this.onCopy()
+  },
   methods: {
+    onCopy () {
+      let clipboard = new Clipboard('#copy')
+      clipboard.on('success', function () {
+        console.log('复制成功')
+      })
+      clipboard.on('error', function () {
+        alert('复制失败')
+      })
+    },
+
+    popCopy () {
+      this.isShowPopup = true
+    },
+
     back () {
-      this.$router.push('/details/')
+      this.$router.push('/details/' + this.jobId)
     }
   }
 }
