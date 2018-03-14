@@ -18,7 +18,7 @@
 
     <div class="detail-detail">
       <div class="title">职位描述</div>
-      <div class="description" v-text="data.jianpin_detail"></div>
+      <div class="description" :class="{'hide': !is_more}" v-text="data.jianpin_detail"></div>
       <div class="btn-more" @click="moreDetail"><span v-text="is_more?'收起': '展开'"></span><img class="btn-more-img" :src="is_more?'//assets.qkcdn.com/images/396f6c3c0fd033f6be32cc660001d007.png': '//assets.qkcdn.com/images/949066b0ae6761f707d74a6c45b0e014.png'"></div>
       <div class="clear"></div>
       <div class="income">
@@ -27,7 +27,7 @@
       </div>
     </div>
 
-    <div class="detail-more" v-if="is_more">
+    <div class="detail-more">
       <div class="detail-time">
         <div class="title">工作时间</div>
         <div class="content" v-text="data.work_time"></div>
@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class="detail-more detail-co" v-if="is_more">
+    <div class="detail-more detail-co">
       <span class="name-title">公司名称</span>
       <span class="name" v-text="data.company"></span>
     </div>
@@ -134,6 +134,11 @@
         font-size: 13px;
         color: #B5B5B5;
         margin-bottom: 14px;
+        overflow: hidden;
+
+        &.hide {
+          height: 72px;
+        }
       }
 
       .btn-more {
@@ -234,7 +239,6 @@
 </style>
 <script>
   import DetailHeader from '~/components/DetailHeader'
-  //  import {URI_DETAIL} from '~/services/contants'
   import {queryJobDetail} from '~/services/login'
 
   export default {
