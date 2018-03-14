@@ -4,7 +4,7 @@
       <div class="header">
         <img class="logo" src="//assets.qkcdn.com/images/87e1ad360d8cc68fb98ca6fb10d2c7ab.png">
         <img class="title" src="//assets.qkcdn.com/images/c26e186dc20b83745f3cd2e212d4cc89.png">
-        <span @click="forwardTo('address')" class="address">自贡</span>
+        <span @click="forwardTo('address')" class="address">{{ currentCity }}</span>
         <img class="down-arrow" src="//assets.qkcdn.com/images/ac459b70067d67bda7c2b5f79aa6b7ef.png">
         <span @click="forwardTo('search')"><img class="i-search" src="//assets.qkcdn.com/images/77afe7d6166f2cd816dd3dcce1651f49.png"></span>
       </div>
@@ -27,7 +27,9 @@
 <script>
 import LoadingIcon from '~/components/LoadingIcon.vue'
 import JobItems from '~/components/JobItems.vue'
-import { login } from '../services/login'
+import { queryJobList } from '../services/job'
+import { KEY_SUGAR_CURRENT_CITY } from '../services/contants'
+import StorageFactory from '../utils/storage'
 
 export default {
   components: {
@@ -36,29 +38,10 @@ export default {
   },
   data () {
     return {
-      jobList: [{
-        id: 1,
-        title: '苹果手机APP试玩在家随时可做'
-      }, {
-        id: 1,
-        title: '苹果手机APP试玩在家随时可做'
-      }, {
-        id: 1,
-        title: '苹果手机APP试玩在家随时可做'
-      }, {
-        id: 1,
-        title: '苹果手机APP试玩在家随时可做'
-      }, {
-        id: 1,
-        title: '苹果手机APP试玩在家随时可做'
-      }, {
-        id: 1,
-        title: '苹果手机APP试玩在家随时可做'
-      }, {
-        id: 1,
-        title: '苹果手机APP试玩在家随时可做'
-      }],
-      busy: false
+      jobList: [],
+      busy: false,
+      currentCity: {},
+      cityId: ''
     }
   },
   async asyncData ({ params }) {
@@ -68,12 +51,25 @@ export default {
     // return { title: data }
   },
   mounted () {
-    console.log('me')
-    login().then(res => {
-      console.log(res)
-    })
+    let cityObj = new StorageFactory(window.localStorage).get(KEY_SUGAR_CURRENT_CITY)
+    this.currentCity = (cityObj && cityObj.city_name) || '全国'
+    this.cityId = cityObj.id
+
+    this.fetchJobList(0, 10)
   },
   methods: {
+    fetchJobList (offset, pageSize) {
+      let params = {offset, pageSize}
+      if (!this.cityId) {
+        params.city_id = this.cityId
+      }
+      queryJobList(params)
+        .then(res => res.data.payload)
+        .then(payload => {
+          console.log(payload)
+          this.jobList = payload
+        })
+    },
     refresh () {
       this.busy = true
       console.log('isme')

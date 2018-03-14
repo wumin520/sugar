@@ -16,6 +16,7 @@
     "axios": "^0.18.0",
     "clipboard": "^2.0.0",
     "nuxt": "1.4.0",
+    "qs": "^6.5.1",
     "vue-infinite-scroll": "^2.0.2"
   },
   "devDependencies": {

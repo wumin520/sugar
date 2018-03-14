@@ -21,7 +21,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    vendor: ['axios', '~/plugins/vue-scroller'], // 只为插件只打包一次
+    vendor: ['axios', 'qs', '~/plugins/vue-scroller'], // 只为插件只打包一次
     /*
     ** Run ESLint on save
     */

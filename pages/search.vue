@@ -4,10 +4,10 @@
           <img @click="backTo" class="i-back" src="//assets.qkcdn.com/images/3cf1683fe6243ff18c9dfa4666838194.png">
           <div class="search-wrap">
               <i class="i-search"></i>
-              <input class="search-input" placeholder="搜索职位" type="text">
+              <input v-model="keywords" class="search-input" placeholder="搜索职位" type="text">
               <i class="i-close"></i>
           </div>
-          <button class="txt-btn">搜索</button>
+          <button @click="searchJob" class="txt-btn">搜索</button>
       </header>
       <section>
           <job-items :job-list="jobList"></job-items>
@@ -82,6 +82,8 @@
 </style>
 <script>
 import JobItems from '~/components/JobItems.vue'
+import { searchJob } from '../services/job'
+import StorageFactory from '../utils/storage'
 
 export default {
   components: {
@@ -89,13 +91,25 @@ export default {
   },
   data () {
     return {
-      jobList: [{
-        id: 1,
-        title: '钱咖'
-      }]
+      jobList: [],
+      keywords: ''
     }
   },
+  mounted () {
+    console.log('window: ', window)
+    new StorageFactory(window.localStorage).set('me', {id: 1, title: 'me'})
+    console.log(new StorageFactory(window.localStorage).get('me'))
+  },
   methods: {
+    searchJob () {
+      let keywords = this.keywords
+      let params = {keywords, offset: 0, pagesize: 50}
+      searchJob(params)
+        .then(res => res.data && res.data.payload)
+        .then(payload => {
+          this.jobList = payload
+        })
+    },
     backTo () {
       this.$router.push('/')
     }
