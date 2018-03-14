@@ -233,7 +233,7 @@
   }
 </style>
 <script>
-  import DetailHeader from './header.vue'
+  import DetailHeader from '~/components/DetailHeader'
 
   export default {
     components: {
