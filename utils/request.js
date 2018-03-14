@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const _api = axios.create({
-  baseURL: 'http://localhost:6100',
+  baseURL: 'http://fp02.ops.gaoshou.me:5021',
   timeout: 1000
 })
 
@@ -21,7 +21,7 @@ _api.interceptors.response.use(function (response) {
   return response
 }, function (error) {
   // Do something with response error
-  return Promise.reject(error)
+  return Promise.reject(error.response.data)
 })
 
 export default _api
