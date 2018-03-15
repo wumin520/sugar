@@ -43,7 +43,13 @@
       <span class="name" v-text="data.company"></span>
     </div>
 
-    <div class="btn-commit" @click="btnCommit()">我要报名</div>
+    <!--<div class="btn-commit" @click="btnCommit()">我要报名</div>-->
+    <div class="btn-commit" v-if="data.jump_type === 1">
+      <a class="to-url" :href="data.jump_url">我要报名</a>
+    </div>
+    <div class="btn-commit" v-else>
+      <nuxt-link class="to-url" to="/contact">我要报名</nuxt-link>
+    </div>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -234,6 +240,22 @@
       text-align: center;
       background: #6ED9CA;
       margin-top: 5px;
+
+      a:link,a:visited{
+        text-decoration:none;
+      }
+      a:hover{
+        text-decoration:underline;
+      }
+
+      .to-url {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        color: #fff;
+      }
     }
   }
 </style>
@@ -287,7 +309,8 @@
       btnCommit () {
         if (this.data) {
           if (this.data.jump_type === 1) {
-            window.location.herf = this.data.jump_url
+            console.log(this.data.jump_url)
+            window.herf = 'http://www.baidu.com'
           }
           if (this.data.jump_type === 2) {
             this.$router.push('/contact')
