@@ -248,7 +248,6 @@
       }
 
       a:visited {
-        font-size: 12px;
         color: #fff;
         text-decoration: none;
       }
