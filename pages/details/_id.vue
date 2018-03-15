@@ -7,19 +7,19 @@
     ></DetailHeader>
     <div class="detail-title">
       <p class="title" v-text="data.title"></p>
-      <p class="salary"><span class="num" v-text="data.currency"></span><span v-text="data.currency_unit"></span></p>
+      <p class="salary" v-if="data"><span class="num" v-text="data.currency"></span><span v-text="'元/' + data.currency_unit"></span></p>
       <div class="label" v-if="data">
         <div class="label-item" v-text="data.jiexi_type"></div>
-        <div class="label-item" v-text="data.jianpin_person"></div>
+        <div class="label-item" v-text="data.jianpin_person + '人'"></div>
         <div class="clear"></div>
       </div>
-      <span v-if="data.tag"><img class="hot" src="//assets.qkcdn.com/images/302d958266ec83b5f0762e3f443400d6.png"></span>
+      <span v-if="data.hot_tag === 1"><img class="hot" src="//assets.qkcdn.com/images/302d958266ec83b5f0762e3f443400d6.png"></span>
     </div>
 
     <div class="detail-detail">
       <div class="title">职位描述</div>
       <div class="description" :class="{'hide': !is_more}" v-text="data.jianpin_detail"></div>
-      <div class="btn-more" @click="moreDetail"><span v-text="is_more?'收起': '展开'"></span><img class="btn-more-img" :src="is_more?'//assets.qkcdn.com/images/396f6c3c0fd033f6be32cc660001d007.png': '//assets.qkcdn.com/images/949066b0ae6761f707d74a6c45b0e014.png'"></div>
+      <div class="btn-more" @click="moreDetail" v-if="data"><span v-text="is_more?'收起': '展开'"></span><img class="btn-more-img" :src="is_more?'//assets.qkcdn.com/images/396f6c3c0fd033f6be32cc660001d007.png': '//assets.qkcdn.com/images/949066b0ae6761f707d74a6c45b0e014.png'"></div>
       <div class="clear"></div>
       <div class="income">
         <div class="title">薪资福利</div>
