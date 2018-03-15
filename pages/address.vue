@@ -14,6 +14,7 @@
 import { queryCitys } from '../services/address'
 import { KEY_SUGAR_CURRENT_CITY } from '../services/contants'
 import StorageFactory from '../utils/storage'
+import { mapMutations } from 'vuex'
 
 export default {
   layout: 'gray',
@@ -30,7 +31,9 @@ export default {
     })
   },
   methods: {
+    ...mapMutations(['updateCity']),
     selectCity (item) {
+      this.updateCity(item)
       new StorageFactory(window.localStorage).set(KEY_SUGAR_CURRENT_CITY, item)
       this.currentCity = item.city_name
       this.$router.push('/')
@@ -56,8 +59,8 @@ export default {
     div {
       display: inline-block;
       width: 25%;
-      background: #ffffff;      
-      text-align: center;      
+      background: #ffffff;
+      text-align: center;
     }
   }
 

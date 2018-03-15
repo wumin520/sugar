@@ -21,10 +21,10 @@
     @include font-regular();
 
     header {
-      padding: 14px 16px; 
+      padding: 14px 16px;
 
       .search-wrap {
-        position: relative;          
+        position: relative;
         display: inline-block;
         width: 275px;
         margin-left: 14px;
@@ -83,8 +83,7 @@
 <script>
 import JobItems from '~/components/JobItems.vue'
 import { searchJob } from '../services/job'
-import StorageFactory from '../utils/storage'
-import { KEY_SUGAR_CURRENT_CITY } from '../services/contants'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -93,20 +92,18 @@ export default {
   data () {
     return {
       jobList: [],
-      keywords: '',
-      cityId: ''
+      keywords: ''
     }
   },
-  mounted () {
-    let cityObj = new StorageFactory(window.localStorage).get(KEY_SUGAR_CURRENT_CITY)
-    this.cityId = cityObj.id
+  computed: {
+    ...mapState(['currentCity'])
   },
   methods: {
     searchJob () {
       let keywords = this.keywords
       let params = {keywords, offset: 0, pagesize: 50}
-      if (this.cityId) {
-        params.city_id = this.cityId
+      if (this.currentCity.id) {
+        params.city_id = this.currentCity.id
       }
       searchJob(params)
         .then(res => res.data && res.data.payload)
