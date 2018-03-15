@@ -20,7 +20,7 @@ _api.interceptors.response.use(function (response) {
   return response
 }, function (error) {
   // Do something with response error
-  return Promise.reject(error.response.data)
+  return Promise.reject(error.response && error.response.data)
 })
 
 export default _api

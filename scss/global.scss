@@ -11,6 +11,9 @@ button, input {
   border: none;
   background: none;
 }
+:focus,a,a:active,a:focus,a:hover,button,button:focus {
+    outline: 0
+}
 // body,
 // button, input, select, textarea {
 //     font: 14px/1.5 tahoma, \5b8b\4f53, sans-serif;

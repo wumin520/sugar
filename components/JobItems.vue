@@ -11,7 +11,7 @@
         </div>
         <div class="bottom">
         <span><label class="money">{{ item.currency }}</label>元/{{ item.currency_unit | formartUnit}}</span>
-        <i class="i-vertical-line"></i><span>{{ item.jiexi_type | formartJieXiType}}结</span>
+        <i class="i-vertical-line"></i><span>{{ item.jiexi_type | formartJieXiType}}</span>
         </div>
     </li>
   </ul>
