@@ -18,7 +18,7 @@
 
     <div class="detail-detail">
       <div class="title">职位描述</div>
-      <div class="description" :class="{'hide': !is_more}" v-text="data.jianpin_detail"></div>
+      <div class="description" :class="{'hide': !is_more}" v-html="data.jianpin_detail"></div>
       <div class="btn-more" @click="moreDetail" v-if="data"><span v-text="is_more?'收起': '展开'"></span><img class="btn-more-img" :src="is_more?'//assets.qkcdn.com/images/396f6c3c0fd033f6be32cc660001d007.png': '//assets.qkcdn.com/images/949066b0ae6761f707d74a6c45b0e014.png'"></div>
       <div class="clear"></div>
       <div class="income">
@@ -311,7 +311,7 @@
       },
 
       back () {
-        this.$router.go(-1)
+        this.$router.push('/')
       }
     }
   }

@@ -23,7 +23,7 @@
             <div class="title">复制成功</div>
             <div class="desc">您已成功复制微信号，是否立即跳转<br>
                 到微信搜索该微信号</div>
-            <div class="btn-wrap"><button class="btn-primary">确定</button></div>
+            <a class="btn-wrap" href="weixin://"><button class="btn-primary">确定</button></a>
         </div>
     </div>
   </div>
