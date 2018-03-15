@@ -3,11 +3,12 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'nuxtq',
+    title: '兼聘网',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=375, user-scalable=no' },
-      { hid: 'description', name: 'description', content: 'Nuxt.js project' }
+      { hid: 'keyword', name: 'keyword', content: '一个APP试玩赚钱的兼职平台、兼职挣钱、手机挣钱、兼职' },
+      { hid: 'description', name: 'description', content: '一个APP试玩赚钱的兼职平台' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
