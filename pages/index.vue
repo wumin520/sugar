@@ -68,11 +68,9 @@ export default {
     }
   },
   mounted () {
-    if (this.currentCity.id > 0) {
-      this.jobList = []
-      this.busy = true
-      this.fetchJobList(0)
-    }
+    this.jobList = []
+    this.busy = true
+    this.fetchJobList(0)
   },
   methods: {
     fetchJobList (offset) {
