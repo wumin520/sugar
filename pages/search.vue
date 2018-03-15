@@ -5,7 +5,7 @@
           <div class="search-wrap">
               <i class="i-search"></i>
               <input v-model="keywords" class="search-input" placeholder="搜索职位" type="text">
-              <i class="i-close"></i>
+              <i @click="clearKeywords" class="i-close"></i>
           </div>
           <button @click="searchJob" class="txt-btn">搜索</button>
       </header>
@@ -113,6 +113,9 @@ export default {
         .then(payload => {
           this.jobList = payload
         })
+    },
+    clearKeywords () {
+      this.keywords = ''
     },
     backTo () {
       this.$router.push('/')

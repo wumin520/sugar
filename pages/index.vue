@@ -43,7 +43,8 @@ export default {
       busy: true,
       currentCity: {},
       cityId: '',
-      lastId: ''
+      lastId: '',
+      page: 0
     }
   },
   async asyncData ({ params }) {
@@ -60,7 +61,7 @@ export default {
     this.fetchJobList(0)
   },
   methods: {
-    fetchJobList (offset, pagesize = 10) {
+    fetchJobList (offset, pagesize = 50) {
       let params = {offset, pagesize}
       if (this.cityId) {
         params.city_id = this.cityId
@@ -76,13 +77,13 @@ export default {
             this.jobList.push(...payload)
           }
           this.isLoading = false
+          this.page++
         })
     },
     refresh () {
       this.busy = true
       console.log('start loading more data')
-      let offset = this.jobList.length
-      this.fetchJobList(offset)
+      this.fetchJobList(this.page)
     },
     forwardTo (name, params) {
       let path = '/' + name
