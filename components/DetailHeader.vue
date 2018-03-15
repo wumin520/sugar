@@ -4,7 +4,7 @@
     <div class="header-box">
       <span><img class="i-back" @click="onBack()" src="//assets.qkcdn.com/images/3cf1683fe6243ff18c9dfa4666838194.png"></span>
       <div class="title" v-text="title">兼聘兼职</div>
-      <span v-if="hasSearch"><img class="i-search" src="//assets.qkcdn.com/images/77afe7d6166f2cd816dd3dcce1651f49.png"></span>
+      <nuxt-link v-if="hasSearch" to="/search"><img class="i-search" src="//assets.qkcdn.com/images/77afe7d6166f2cd816dd3dcce1651f49.png"></nuxt-link>
     </div>
   </div>
 </template>
