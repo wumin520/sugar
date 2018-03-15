@@ -53,24 +53,24 @@ export default {
     // let { data } = await login()
     // console.log(data)
     // return { title: data }
-    console.log('isme: ', context)
-    return queryJobList({
-      offset: 0,
-      pagesize: 50
-    }).then(res => res.data.payload)
-      .then(payload => {
-        return {
-          jobList: payload,
-          page: 2
-        }
-      })
+    console.log('isme: ', context, process.server)
+    if (process.server) {
+      return queryJobList({
+        offset: 0,
+        pagesize: 50
+      }).then(res => res.data.payload)
+        .then(payload => {
+          return {
+            jobList: payload,
+            page: 2
+          }
+        })
+    }
   },
   mounted () {
-    if (this.currentCity.id > 0) {
-      this.jobList = []
-      this.busy = true
-      this.fetchJobList(0)
-    }
+    this.jobList = []
+    this.busy = true
+    this.fetchJobList(0)
   },
   methods: {
     fetchJobList (offset) {
