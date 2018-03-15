@@ -6,7 +6,7 @@ module.exports = {
     title: 'nuxtq',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=375, user-scalable=no, initial-scale=1' },
+      { name: 'viewport', content: 'width=375, user-scalable=no' },
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
@@ -21,7 +21,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    vendor: ['axios', '~/plugins/vue-scroller'], // 只为插件只打包一次
+    vendor: ['axios', 'qs', '~/plugins/vue-scroller'], // 只为插件只打包一次
     /*
     ** Run ESLint on save
     */

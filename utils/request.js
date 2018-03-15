@@ -8,7 +8,6 @@ const _api = axios.create({
 // Add a request interceptor
 _api.interceptors.request.use(function (config) {
   // Do something before request is sent
-  console.log(config, 'dd')
   return config
 }, function (error) {
   // Do something with request error
@@ -21,7 +20,7 @@ _api.interceptors.response.use(function (response) {
   return response
 }, function (error) {
   // Do something with response error
-  return Promise.reject(error.response.data)
+  return Promise.reject(error.response && error.response.data)
 })
 
 export default _api

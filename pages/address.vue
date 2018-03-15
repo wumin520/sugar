@@ -2,39 +2,39 @@
 <div class="container">
   <header>
     <div class="title-wrap" @click="forward('home')">兼聘</div>
-    <div class="current-location">当前定位： <span class="active">上海</span></div>
+    <div class="current-location">当前定位： <span class="active">{{ currentCity }}</span></div>
   </header>
   <div class="all-city">全部城市</div>
   <div class="address-list-container">
-    <div v-for="(item, index) in addressList" :key="index">{{ item.title }}</div>
+    <div @click="selectCity(item)" v-for="item in addressList" :key="item.id">{{ item.city_name }}</div>
   </div>
 </div>
 </template>
 <script>
+import { queryCitys } from '../services/address'
+import { KEY_SUGAR_CURRENT_CITY } from '../services/contants'
+import StorageFactory from '../utils/storage'
+
 export default {
   layout: 'gray',
   data () {
     return {
-      addressList: [{
-        title: '北京'
-      }, {
-        title: '北京'
-      }, {
-        title: '北京'
-      }, {
-        title: '北京'
-      }, {
-        title: '北京'
-      }, {
-        title: '北京'
-      }, {
-        title: '北京'
-      }, {
-        title: '北京'
-      }]
+      addressList: [],
+      currentCity: '全国'
     }
   },
+  mounted () {
+    queryCitys().then(res => res.data.payload).then(payload => {
+      console.log(payload)
+      this.addressList = payload
+    })
+  },
   methods: {
+    selectCity (item) {
+      new StorageFactory(window.localStorage).set(KEY_SUGAR_CURRENT_CITY, item)
+      this.currentCity = item.city_name
+      this.$router.push('/')
+    },
     forward (name) {
       this.$router.push('/')
       console.log(this.$router)
