@@ -4,7 +4,7 @@
       <div class="header">
         <img class="logo" src="//assets.qkcdn.com/images/87e1ad360d8cc68fb98ca6fb10d2c7ab.png">
         <img class="title" src="//assets.qkcdn.com/images/c26e186dc20b83745f3cd2e212d4cc89.png">
-        <span @click="forwardTo('address')" class="address">{{ currentCity }}</span>
+        <span @click="forwardTo('address')" v-text="currentCity.city_name" class="address"></span>
         <img class="down-arrow" src="//assets.qkcdn.com/images/ac459b70067d67bda7c2b5f79aa6b7ef.png">
         <span @click="forwardTo('search')"><img class="i-search" src="//assets.qkcdn.com/images/77afe7d6166f2cd816dd3dcce1651f49.png"></span>
       </div>
@@ -28,8 +28,7 @@
 import LoadingIcon from '~/components/LoadingIcon.vue'
 import JobItems from '~/components/JobItems.vue'
 import { queryJobList } from '../services/job'
-import { KEY_SUGAR_CURRENT_CITY } from '../services/contants'
-import StorageFactory from '../utils/storage'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -40,38 +39,50 @@ export default {
     return {
       jobList: [],
       isLoading: false,
-      busy: true,
-      currentCity: {},
-      cityId: '',
+      busy: false,
       lastId: '',
       page: 0,
-      pageSize: 50
+      pagesize: 50
     }
   },
-  async asyncData ({ params }) {
+  computed: {
+    ...mapState(['currentCity'])
+  },
+  async asyncData (context) {
     // console.log(login)
     // let { data } = await login()
     // console.log(data)
     // return { title: data }
+    console.log('isme: ', context)
+    return queryJobList({
+      offset: 0,
+      pagesize: 50
+    }).then(res => res.data.payload)
+      .then(payload => {
+        return {
+          jobList: payload,
+          page: 2
+        }
+      })
   },
   mounted () {
-    let cityObj = new StorageFactory(window.localStorage).get(KEY_SUGAR_CURRENT_CITY)
-    this.currentCity = (cityObj && cityObj.city_name) || '全国'
-    this.cityId = cityObj.id
-
-    this.fetchJobList(0)
+    if (this.currentCity.id > 0) {
+      this.jobList = []
+      this.busy = true
+      this.fetchJobList(0)
+    }
   },
   methods: {
     fetchJobList (offset) {
       let params = {offset, pagesize: this.pagesize}
-      if (this.cityId) {
-        params.city_id = this.cityId
+      if (this.currentCity.id) {
+        params.city_id = this.currentCity.id
       }
       this.isLoading = true
       queryJobList(params)
         .then(res => res.data.payload)
         .then(payload => {
-          if (payload.length < this.pageSize) {
+          if (payload.length < this.pagesize) {
             this.busy = true
           } else {
             this.busy = false
@@ -82,8 +93,8 @@ export default {
         })
     },
     refresh () {
-      this.busy = true
       console.log('start loading more data')
+      this.busy = true
       this.fetchJobList(this.page)
     },
     forwardTo (name, params) {
