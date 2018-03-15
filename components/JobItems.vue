@@ -2,12 +2,12 @@
   <ul class="job-wrap">
     <li @click="forwardTo('details', item.id)" v-for="(item, index) in jobList" :key="index" class="job-item">
         <div class="top">{{ item.title }}
-        <img v-if="item.tag === 1" class="i-hot" src="//assets.qkcdn.com/images/4ffbdc8d18a70c53f564b083bc990ce5.png">
+        <img v-if="item.hot_tag === 1" class="i-hot" src="//assets.qkcdn.com/images/4ffbdc8d18a70c53f564b083bc990ce5.png">
         </div>
         <div class="middle">
         <img class="i-address" src="//assets.qkcdn.com/images/4a83e774ee285572434330008cfe7ad7.png">{{ item.city_name }}
         <img class="i-time" src="//assets.qkcdn.com/images/4f2abe32e416476fedc3279926b8381c.png">
-        {{ item.jianpin_type === 1 ? '长期' : ('指定时间') }}可做
+        {{ item.jianpin_type }}
         </div>
         <div class="bottom">
         <span><label class="money">{{ item.currency }}</label>元/{{ item.currency_unit | formartUnit}}</span>
