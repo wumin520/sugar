@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const _api = axios.create({
   baseURL: 'http://fp02.ops.gaoshou.me:5021',
-  timeout: 1000
+  timeout: 10000
 })
 
 // Add a request interceptor

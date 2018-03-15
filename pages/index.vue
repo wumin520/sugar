@@ -44,7 +44,8 @@ export default {
       currentCity: {},
       cityId: '',
       lastId: '',
-      page: 0
+      page: 0,
+      pageSize: 50
     }
   },
   async asyncData ({ params }) {
@@ -61,8 +62,8 @@ export default {
     this.fetchJobList(0)
   },
   methods: {
-    fetchJobList (offset, pagesize = 50) {
-      let params = {offset, pagesize}
+    fetchJobList (offset) {
+      let params = {offset, pagesize: this.pagesize}
       if (this.cityId) {
         params.city_id = this.cityId
       }
@@ -70,12 +71,12 @@ export default {
       queryJobList(params)
         .then(res => res.data.payload)
         .then(payload => {
-          if (payload.length === 0) {
+          if (payload.length < this.pageSize) {
             this.busy = true
           } else {
             this.busy = false
-            this.jobList.push(...payload)
           }
+          this.jobList.push(...payload)
           this.isLoading = false
           this.page++
         })
@@ -113,7 +114,7 @@ export default {
   }
 
   .header {
-    padding: 10px 16px;    
+    padding: 10px 16px;
     display: flex;
     align-items: center;
     justify-items: center;
