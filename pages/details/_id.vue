@@ -47,10 +47,10 @@
     </div>
 
     <div class="btn-commit" v-if="data.jump_type === 2">
-      <nuxt-link class="to-url" to="/contact">我要报名</nuxt-link>
+      <nuxt-link class="to-url" to="/contact">开始赚钱</nuxt-link>
     </div>
     <div class="btn-commit" v-else>
-      <a class="to-url" :href="data.jump_url">我要报名</a>
+      <a class="to-url" :href="data.jump_url">开始赚钱</a>
     </div>
   </div>
 </template>
@@ -88,11 +88,12 @@
         height: 26px;
         font-family: PingFangSC-Regular;
         font-size: 14px;
-        color: #6ED9CA;
+        color: $primary-color;
 
         .num {
           font-family: DINMittelschriftStd;
           font-size: 26px;
+          margin-right: 2px;
         }
       }
 
@@ -152,7 +153,7 @@
         }
 
         &.hide {
-          height: 72px;
+          height: 139px;
         }
       }
 
@@ -248,7 +249,7 @@
       font-size: 16px;
       color: #FFFFFF;
       text-align: center;
-      background: #6ED9CA;
+      background: $primary-color;
       margin-top: 5px;
 
       a:link,a:visited{

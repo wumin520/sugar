@@ -2,7 +2,7 @@
   <ul class="job-wrap">
     <li @click="forwardTo('details', item.id)" v-for="(item, index) in jobList" :key="index" class="job-item">
         <div class="top">{{ item.title }}
-        <img v-if="item.hot_tag === 1" class="i-hot" src="//assets.qkcdn.com/images/4ffbdc8d18a70c53f564b083bc990ce5.png">
+        <img v-if="item.hot_tag === 1" class="i-hot" src="//assets.qkcdn.com/images/a89237a3fdaae321f04cbe4b043af646.png">
         </div>
         <div class="middle">
         <img class="i-address" src="//assets.qkcdn.com/images/4a83e774ee285572434330008cfe7ad7.png">{{ item.city_name }}
@@ -79,14 +79,16 @@ export default {
       border-top: 0.5px solid #eeeeee;
 
       .top {
-        font-size: 14px;
+        @include font-semibold();
+
+        font-size: 16px;
         color: #444749;
         display: flex;
         align-items: center;
 
         .i-hot {
           width: 28px;
-          margin-left: 8px;
+          margin-left: 10px;
         }
       }
       .middle {
@@ -94,7 +96,7 @@ export default {
         align-items: center;
         font-size: 12px;
         color: #B5B5B5;
-        margin: 6px 0 15px;
+        margin: 8px 0 11px;
 
         .i-address {
           width: 12px;
@@ -102,7 +104,7 @@ export default {
         }
         .i-time {
           width: 12px;
-          margin-left: 12px;
+          margin-left: 14px;
           margin-right: 4px;
         }
       }
@@ -115,7 +117,7 @@ export default {
           @include font-din();
 
           font-size: 22px;
-          color: #6ED9CA;
+          color: $primary-color;
           margin-right: 2px;
           position: relative;
           top: 1px;

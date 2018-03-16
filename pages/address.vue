@@ -112,7 +112,7 @@ export default {
 
       .active {
         font-size: 14px;
-        color: #6ED9CA;
+        color: $primary-color;
       }
     }
   }

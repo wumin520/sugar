@@ -5,7 +5,7 @@
   "author": "wumin <wu.min@qianka.com>",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "HOST=0.0.0.0 nuxt",
     "start": "nuxt build &&  PORT=3002 nuxt start",
     "build": "nuxt build && nuxt generate",
     "generate": "nuxt generate",
