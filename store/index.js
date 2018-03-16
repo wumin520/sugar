@@ -3,7 +3,8 @@ export const state = () => ({
   currentCity: {
     city_name: '全国',
     id: 0
-  }
+  },
+  BACKEND: process.env.BACKEND
 })
 
 export const mutations = {

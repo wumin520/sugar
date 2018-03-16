@@ -19,7 +19,10 @@
     <div class="detail-detail">
       <div class="title">职位描述</div>
       <div class="description" :class="{'hide': !is_more}" v-html="data.jianpin_detail"></div>
-      <div class="btn-more" @click="moreDetail" v-if="data"><span v-text="is_more?'收起': '展开'"></span><img class="btn-more-img" :src="is_more?'//assets.qkcdn.com/images/396f6c3c0fd033f6be32cc660001d007.png': '//assets.qkcdn.com/images/949066b0ae6761f707d74a6c45b0e014.png'"></div>
+      <div class="btn-more" @click="moreDetail" v-if="data">
+        <span v-text="is_more?'收起': '展开'"></span>
+        <img class="btn-more-img" :src="is_more?'//assets.qkcdn.com/images/396f6c3c0fd033f6be32cc660001d007.png'
+        : '//assets.qkcdn.com/images/949066b0ae6761f707d74a6c45b0e014.png'"></div>
       <div class="clear"></div>
       <div class="income">
         <div class="title">薪资福利</div>
@@ -52,6 +55,8 @@
   </div>
 </template>
 <style lang="scss">
+  @import "../../scss/mixins";
+
   .container._job_detail_container {
     min-height: 100vh;
     background: #f5f5f5;
@@ -80,10 +85,10 @@
       }
 
       .salary {
+        height: 26px;
         font-family: PingFangSC-Regular;
         font-size: 14px;
         color: #6ED9CA;
-        margin-bottom: 8px;
 
         .num {
           font-family: DINMittelschriftStd;
@@ -95,11 +100,10 @@
         font-family: PingFangSC-Regular;
         font-size: 12px;
         color: #444749;
+        line-height: 17px;
 
         .label-item {
           float: left;
-          height: 8px;
-          line-height: 8px;
           border-right: solid 1px #B5B5B5;
           padding-left: 5px;
           padding-right: 5px;
