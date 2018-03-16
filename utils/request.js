@@ -1,11 +1,15 @@
 import axios from 'axios'
 
+let backEnd
+if (process.client) {
+  backEnd = window && window.__NUXT__.state.BACKEND
+}
 const _api = axios.create({
-  baseURL: process.env.BACKEND || 'http://fp02.ops.gaoshou.me:5021',
+  baseURL: backEnd || 'http://fp02.ops.gaoshou.me:5021',
   timeout: 10000
 })
 
-console.log('BACKEND: ', process.env.BACKEND)
+console.log('baseURL: ', backEnd)
 
 // Add a request interceptor
 _api.interceptors.request.use(function (config) {
