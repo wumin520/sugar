@@ -8,7 +8,7 @@
     </div>
   </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 .loading-container {
   height: 80px;
   background: #f5f5f5;
@@ -18,9 +18,9 @@
 
   .loading-wrap {
     .spinner {
-      stroke: #69717d;      
+      stroke: #69717d;
       fill: #484746;
-      
+
       svg {
         width: 20px !important;
         height: 20px !important;

@@ -16,7 +16,7 @@
             <loading-icon></loading-icon>
           </div>
       </section>
-      <footer>
+      <footer v-if="isEnd">
         <div>宁波万精油网络科技有限公司</div>
         <div>京ICP备11045189-2号</div>
       </footer>
@@ -31,6 +31,7 @@ import { queryJobList } from '../services/job'
 import { mapState } from 'vuex'
 
 export default {
+  layout: 'gray',
   components: {
     LoadingIcon,
     JobItems
@@ -41,19 +42,15 @@ export default {
       isLoading: false,
       busy: false,
       lastId: '',
-      page: 0,
-      pagesize: 50
+      page: 1,
+      pagesize: 50,
+      isEnd: false
     }
   },
   computed: {
     ...mapState(['currentCity'])
   },
-  async asyncData (context) {
-    // console.log(login)
-    // let { data } = await login()
-    // console.log(data)
-    // return { title: data }
-    console.log('isme: ', context, process.server)
+  async asyncData () {
     if (process.server) {
       return queryJobList({
         offset: 0,
@@ -61,8 +58,7 @@ export default {
       }).then(res => res.data.payload)
         .then(payload => {
           return {
-            jobList: payload,
-            page: 2
+            jobList: payload
           }
         })
     }
@@ -70,10 +66,10 @@ export default {
   mounted () {
     this.jobList = []
     this.busy = true
-    this.fetchJobList(0)
+    this.fetchJobList()
   },
   methods: {
-    fetchJobList (offset) {
+    fetchJobList (offset = 1) {
       let params = {offset, pagesize: this.pagesize}
       if (this.currentCity.id) {
         params.city_id = this.currentCity.id
@@ -84,6 +80,7 @@ export default {
         .then(payload => {
           if (payload.length < this.pagesize) {
             this.busy = true
+            this.isEnd = true
           } else {
             this.busy = false
           }
@@ -112,7 +109,8 @@ export default {
 @import "../scss/mixins";
 
 .container {
-  min-height: 100vh;
+  background: #fff;
+
   @include font-regular();
 
   footer {

@@ -37,7 +37,7 @@ module.exports = {
       }
     }
   },
-  plugins: [{src: '~/plugins/vue-scroller', ssr: false}],
+  plugins: [{src: '~/plugins/vue-scroller', ssr: false}, {src: '~/plugins/vue-loading', ssr: false}],
   css: [
     'assets/main.css'
   ],

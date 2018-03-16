@@ -76,7 +76,7 @@ export default {
 
     .job-item {
       padding: 18px 0 13px;
-      border-top: 1px solid #eeeeee;
+      border-top: 0.5px solid #eeeeee;
 
       .top {
         font-size: 14px;
@@ -125,7 +125,8 @@ export default {
           width: 1px;
           height: 8px;
           margin: 0 5px;
-          box-shadow: inset 1px 0 0 0 #B5B5B5;
+          background: #b5b5b5;
+          /*box-shadow: inset 0.5px 0 0 0 #B5B5B5;*/
         }
       }
     }
