@@ -1,9 +1,11 @@
 import axios from 'axios'
 
 const _api = axios.create({
-  baseURL: 'http://fp02.ops.gaoshou.me:5021',
+  baseURL: process.env.BACKEND || 'http://fp02.ops.gaoshou.me:5021',
   timeout: 10000
 })
+
+console.log('BACKEND: ', process.env.BACKEND)
 
 // Add a request interceptor
 _api.interceptors.request.use(function (config) {
