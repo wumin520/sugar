@@ -9,7 +9,7 @@
           </div>
           <button @click="searchJob" class="txt-btn">搜索</button>
       </header>
-      <section>
+      <section v-infinite-scroll="refresh" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
           <job-items :job-list="jobList"></job-items>
       </section>
   </div>
@@ -92,27 +92,45 @@ export default {
   data () {
     return {
       jobList: [],
-      keywords: ''
+      keywords: '',
+      busy: true,
+      page: 1,
+      pagesize: 50
     }
   },
   computed: {
     ...mapState(['currentCity'])
   },
   methods: {
-    searchJob () {
+    searchJob (page = 1) {
       let keywords = this.keywords
-      let params = {keywords, offset: 0, pagesize: 50}
+      let params = {keywords, offset: page, pagesize: this.pagesize}
       if (this.currentCity.id) {
         params.city_id = this.currentCity.id
       }
       searchJob(params)
         .then(res => res.data && res.data.payload)
         .then(payload => {
-          this.jobList = payload
+          // 如果是翻页
+          if (page > 1) {
+            this.jobList.push(...payload)
+          } else {
+            this.jobList = payload
+          }
+          this.busy = false
+          if (payload.length < this.pagesize) {
+            this.busy = true
+          }
+          this.page++
         })
     },
     clearKeywords () {
       this.keywords = ''
+    },
+    refresh () {
+      console.log('start loading more data')
+      this.busy = true
+      this.searchJob(this.page)
     },
     backTo () {
       this.$router.push('/')

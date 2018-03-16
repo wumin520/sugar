@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container _job_detail_container">
     <DetailHeader
       title="兼聘兼职"
       :hasSearch="true"
@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class="detail-more detail-co">
+    <div style="margin-bottom: 58px;" class="detail-more detail-co">
       <span class="name-title">公司名称</span>
       <span class="name" v-text="data.company"></span>
     </div>
@@ -51,8 +51,8 @@
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
-  .container {
+<style lang="scss">
+  .container._job_detail_container {
     min-height: 100vh;
     background: #f5f5f5;
 
@@ -65,6 +65,7 @@
       padding: 18px 14px 20px 16px;
       background: #FFFFFF;
       margin-bottom: 10px;
+      font-size: 0px;
 
       .title {
         font-family: PingFangSC-Semibold;
@@ -140,6 +141,11 @@
         color: #B5B5B5;
         margin-bottom: 14px;
         overflow: hidden;
+
+        img {
+          width: 100% !important;
+          height: 100% !important;
+        }
 
         &.hide {
           height: 72px;
@@ -229,7 +235,8 @@
     }
 
     .btn-commit {
-      position: relative;
+      position: fixed;
+      bottom: 0;
       width: 100%;
       height: 52px;
       line-height: 52px;
@@ -269,6 +276,7 @@
   import storage from '~/services/storage'
 
   export default {
+    layout: 'gray',
     components: {
       DetailHeader
     },

@@ -2,11 +2,14 @@
 <div class="container">
   <header>
     <div class="title-wrap" @click="forward('home')">兼聘</div>
-    <div class="current-location">当前定位： <span class="active">{{ currentCity }}</span></div>
+    <div class="current-location">当前定位： <span class="active">{{ currentCityName }}</span></div>
   </header>
   <div class="all-city">全部城市</div>
   <div class="address-list-container">
-    <div @click="selectCity(item)" v-for="item in addressList" :key="item.id">{{ item.city_name }}</div>
+    <div @click="selectCity(item)" v-for="(item, index) in addressList" :key="item.id">
+      <i v-show="(index + 1) % 4 != 0" class="i-vertical-line"></i>
+      {{ item.city_name }}
+    </div>
   </div>
 </div>
 </template>
@@ -14,19 +17,22 @@
 import { queryCitys } from '../services/address'
 import { KEY_SUGAR_CURRENT_CITY } from '../services/contants'
 import StorageFactory from '../utils/storage'
-import { mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   layout: 'gray',
   data () {
     return {
       addressList: [],
-      currentCity: '全国'
+      currentCityName: '全国'
     }
   },
+  computed: {
+    ...mapState(['currentCity'])
+  },
   mounted () {
+    this.currentCityName = this.currentCity.city_name
     queryCitys().then(res => res.data.payload).then(payload => {
-      console.log(payload)
       this.addressList = payload
     })
   },
@@ -35,7 +41,7 @@ export default {
     selectCity (item) {
       this.updateCity(item)
       new StorageFactory(window.localStorage).set(KEY_SUGAR_CURRENT_CITY, item)
-      this.currentCity = item.city_name
+      this.currentCityName = item.city_name
       this.$router.push('/')
     },
     forward (name) {
@@ -57,10 +63,27 @@ export default {
     color: #444749;
 
     div {
+      position: relative;
       display: inline-block;
       width: 25%;
       background: #ffffff;
       text-align: center;
+
+      .i-vertical-line {
+        display: inline-block;
+        position: absolute;
+        top: 14px;
+        right: 0;
+        width: 1px;
+        height: 12px;
+        background: #eeeeee;
+      }
+
+      &:last-child {
+        .i-vertical-line {
+          display: none;
+        }
+      }
     }
   }
 
