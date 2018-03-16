@@ -19,7 +19,7 @@
     <div v-if="isShowPopup" class="popup-container">
         <div class="popup-body">
             <i @click="isShowPopup = false" class="i-close"></i>
-            <div class="logo-wrap"><img class="i-logo" src="//assets.qkcdn.com/images/cba54ab074518c80130fcfbe690c4009.png"></div>
+            <div class="logo-wrap"><img class="i-logo" src="//assets.qkcdn.com/images/a8cfe59a62060fe5a45fc387d80d6efb.png"></div>
             <div class="title">复制成功</div>
             <div class="desc">您已成功复制微信号，是否立即跳转<br>
                 到微信搜索该微信号</div>
@@ -98,7 +98,7 @@
       .btn-primary {
         width: 160px;
         height: 40px;
-        background: #6ED9CA;
+        background: $primary-color;
         border-radius: 2px;
         color: #fff;
       }
@@ -119,17 +119,17 @@
     margin: 22px auto 10px;
     border: 1px dashed #37B32A;
     border-radius: 2px;
-    padding: 14px 25px;
+    padding: 13px 25px;
+    line-height: 22px;
     text-align: center;
     font-family: PingFangSC-Semibold;
-    font-size: 16px;
     color: #37B32A;
     word-wrap:break-word;
 
     .i-weixin {
       width: 21px;
       margin-right: 10px;
-      transform: translateY(4px);
+      vertical-align: middle;
     }
   }
   .mrg-t4 {

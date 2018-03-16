@@ -2,7 +2,7 @@
   <section class="container">
     <div>
       <div class="header">
-        <img class="logo" src="//assets.qkcdn.com/images/87e1ad360d8cc68fb98ca6fb10d2c7ab.png">
+        <img class="logo" src="//assets.qkcdn.com/images/e8033b00ac439b322561b984b7069a5a.png">
         <img class="title" src="//assets.qkcdn.com/images/c26e186dc20b83745f3cd2e212d4cc89.png">
         <span @click="forwardTo('address')" v-text="currentCity.city_name" class="address"></span>
         <img class="down-arrow" src="//assets.qkcdn.com/images/ac459b70067d67bda7c2b5f79aa6b7ef.png">

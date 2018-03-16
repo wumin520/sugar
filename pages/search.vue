@@ -65,6 +65,15 @@
           padding-left: 29px;
           background: rgba(142,142,147,0.12);
           border-radius: 6px;
+
+          &::-webkit-input-placeholder {
+            @include font-regular();
+
+            font-size: 14px !important;
+            color: #8E8E93;
+            letter-spacing: 0;
+            line-height: 22px;
+          }
         }
       }
       .txt-btn {
