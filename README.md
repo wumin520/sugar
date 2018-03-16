@@ -44,3 +44,10 @@ $ npm start
 # generate a static project
 $ npm run generate
 ```
+
+### 生产环境打包
+
+``` bash
+# build for production
+$ BACKEND=http://fp02.ops.gaoshou.me:5021 npm run build
+```
