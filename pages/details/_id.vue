@@ -153,7 +153,7 @@
         }
 
         &.hide {
-          height: 72px;
+          height: 139px;
         }
       }
 
