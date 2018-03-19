@@ -43,7 +43,7 @@
       </div>
     </div>
 
-    <div style="margin-bottom: 58px;" class="detail-more detail-co">
+    <div class="detail-more detail-co">
       <span class="name-title">公司名称</span>
       <span class="name" v-text="data.company"></span>
     </div>
@@ -60,8 +60,8 @@
   @import "../../scss/mixins";
 
   .container._job_detail_container {
-    min-height: 100vh;
     background: #f5f5f5;
+    padding-bottom: 52px;
 
     .clear {
       clear: both;
@@ -246,11 +246,13 @@
 
     .detail-co {
       padding: 10px 20px;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     .btn-commit {
       position: fixed;
+      z-index: 6666;
+      left: 0;
       bottom: 0;
       width: 100%;
       height: 52px;
@@ -260,7 +262,6 @@
       color: #FFFFFF;
       text-align: center;
       background: $primary-color;
-      margin-top: 5px;
 
       a:link,a:visited{
         text-decoration:none;
