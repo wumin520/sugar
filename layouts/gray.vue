@@ -23,6 +23,8 @@ html {
   left: 0;
   right: 0;
   background: #f5f5f5;
+  /*overflow-y: scroll;*/
+  -webkit-overflow-scrolling: touch;
 }
 
 *, *:before, *:after {

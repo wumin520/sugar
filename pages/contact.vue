@@ -96,6 +96,9 @@
         margin-bottom: 24px;
       }
       .btn-primary {
+        @include font-semibold();
+
+        font-size: 13px;
         width: 160px;
         height: 40px;
         background: $primary-color;

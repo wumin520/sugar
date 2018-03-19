@@ -18,6 +18,9 @@
   @import '../scss/mixins';
 
   .container {
+    height: 100%;
+    background: #fff;
+
     @include font-regular();
 
     header {
@@ -66,13 +69,13 @@
           background: rgba(142,142,147,0.12);
           border-radius: 6px;
 
-          &::-webkit-input-placeholder {
+          &::placeholder {
             @include font-regular();
 
             font-size: 14px !important;
             color: #8E8E93;
             letter-spacing: 0;
-            line-height: 22px;
+            line-height: 14px;
           }
         }
       }
@@ -109,6 +112,9 @@ export default {
   },
   computed: {
     ...mapState(['currentCity'])
+  },
+  mounted () {
+    this.jobList = []
   },
   methods: {
     searchJob (page = 1) {
