@@ -7,7 +7,6 @@
   <div class="all-city">全部城市</div>
   <div class="address-list-container">
     <div @click="selectCity(item)" v-for="(item, index) in addressList" :key="item.id">
-      <i v-show="(index + 1) % 4 != 0" class="i-vertical-line"></i>
       {{ item.city_name }}
     </div>
   </div>
@@ -68,22 +67,6 @@ export default {
       width: 25%;
       background: #ffffff;
       text-align: center;
-
-      .i-vertical-line {
-        display: inline-block;
-        position: absolute;
-        top: 14px;
-        right: 0;
-        width: 1px;
-        height: 12px;
-        background: #eeeeee;
-      }
-
-      &:last-child {
-        .i-vertical-line {
-          display: none;
-        }
-      }
     }
   }
 
@@ -104,7 +87,7 @@ export default {
     }
 
     .current-location {
-      border-top: 1px solid #eeeeee;
+      border-top: 0.5px solid #eeeeee;
       margin: 0 16px;
       padding: 12px 0;
       font-size: 14px;

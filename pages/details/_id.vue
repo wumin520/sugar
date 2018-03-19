@@ -10,6 +10,7 @@
       <p class="salary" v-if="data"><span class="num" v-text="data.currency"></span><span v-text="'元/' + data.currency_unit"></span></p>
       <div class="label" v-if="data">
         <div class="label-item" v-text="data.jiexi_type"></div>
+        <i class="i-vertical-line"></i>
         <div class="label-item" v-text="data.jianpin_person + '人'"></div>
         <div class="clear"></div>
       </div>
@@ -18,11 +19,12 @@
 
     <div class="detail-detail">
       <div class="title">职位描述</div>
-      <div class="description" :class="{'hide': !is_more}" v-html="data.jianpin_detail"></div>
-      <div class="btn-more" @click="moreDetail" v-if="data">
-        <span v-text="is_more?'收起': '展开'"></span>
-        <img class="btn-more-img" :src="is_more?'//assets.qkcdn.com/images/396f6c3c0fd033f6be32cc660001d007.png'
-        : '//assets.qkcdn.com/images/949066b0ae6761f707d74a6c45b0e014.png'"></div>
+      <div ref="job_des" class="description" :class="{'hide': is_collapse}" v-html="data.jianpin_detail"></div>
+      <div class="btn-more" @click="moreDetail" v-show="isNeedCollapse">
+        <span v-text="is_collapse?'展开': '收起'"></span>
+        <img class="btn-more-img" :src="!is_collapse?'//assets.qkcdn.com/images/396f6c3c0fd033f6be32cc660001d007.png'
+        : '//assets.qkcdn.com/images/949066b0ae6761f707d74a6c45b0e014.png'">
+      </div>
       <div class="clear"></div>
       <div class="income">
         <div class="title">薪资福利</div>
@@ -105,7 +107,6 @@
 
         .label-item {
           float: left;
-          border-right: solid 1px #B5B5B5;
           padding-left: 5px;
           padding-right: 5px;
 
@@ -115,6 +116,15 @@
           &:nth-last-child(2) {
             border-right: none;
           }
+        }
+
+        .i-vertical-line {
+          float: left;
+          display: inline-block;
+          width: 1px;
+          height: 8px;
+          box-shadow: inset 1px 0 0 0 #B5B5B5;
+          margin-top: 4.5px;
         }
       }
 
@@ -289,8 +299,9 @@
     data () {
       return {
         jobId: 0,
-        is_more: false,
-        data: ''
+        is_collapse: false,
+        data: '',
+        isNeedCollapse: false
       }
     },
     mounted () {
@@ -310,6 +321,14 @@
               storage.setStorage('DETAIL_WECHAT', this.data.jump_url)
               storage.setStorage('DETAIL_ID', this.jobId)
             }
+            this.$nextTick(() => {
+              let el = this.$refs.job_des
+              let h = el.clientHeight || el.offsetHeight || el.scrollHeight
+              if (h >= 139) {
+                this.isNeedCollapse = true
+                this.is_collapse = true
+              }
+            })
           })
           .catch(err => {
             if (err.err_msg) {
@@ -320,7 +339,7 @@
 
       // 展开 收起
       moreDetail () {
-        this.is_more = !this.is_more
+        this.is_collapse = !this.is_collapse
       },
 
       back () {

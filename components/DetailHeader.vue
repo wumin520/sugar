@@ -21,7 +21,7 @@
 
     .header-box {
       position: relative;
-      border-bottom: solid 1px #eeeeee;
+      border-bottom: solid 0.5px #eeeeee;
       width: 100%;
       height: 100%;
     }
