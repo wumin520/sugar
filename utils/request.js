@@ -4,6 +4,9 @@ let backEnd
 if (process.client) {
   backEnd = window && window.__NUXT__.state.BACKEND
 }
+if (process.server) {
+  backEnd = process.env.BACKEND
+}
 const _api = axios.create({
   baseURL: backEnd || 'http://fp02.ops.gaoshou.me:5021',
   timeout: 10000
