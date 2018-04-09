@@ -22,7 +22,7 @@ module.exports = {
   ** Build configuration
   */
   router: {
-    base: '/app/'
+    base: '/list/'
   },
   build: {
     vendor: ['axios', 'qs', '~/plugins/vue-scroller'], // 只为插件只打包一次
