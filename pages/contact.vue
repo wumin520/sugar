@@ -21,9 +21,8 @@
             <i @click="isShowPopup = false" class="i-close"></i>
             <div class="logo-wrap"><img class="i-logo" src="//assets.qkcdn.com/images/a8cfe59a62060fe5a45fc387d80d6efb.png"></div>
             <div class="title">复制成功</div>
-            <div class="desc">您已成功复制微信号，是否立即跳转<br>
-                到微信搜索该微信号</div>
-            <a class="btn-wrap" href="weixin://"><button class="btn-primary">确定</button></a>
+            <div class="desc">您已成功复制微信号，请打开微信>通讯录>公众号>右上角添加>搜索“swapp321”并关注</div>
+            <a style="display: none;" class="btn-wrap" href="weixin://"><button class="btn-primary">确定</button></a>
         </div>
     </div>
   </div>
@@ -57,7 +56,7 @@
 
     .popup-body {
       position: relative;
-      width: 275px;
+      width: 300px;
       height: 258px;
       padding: 30px 0 40px;
       background: #FFFFFF;
@@ -89,8 +88,9 @@
         margin: 14px 0 12px;
       }
       .desc {
+        padding: 0 20px;
         font-size: 13px;
-        color: #888888;
+        color: #3a3a3a;
         text-align: center;
         line-height: 20px;
         margin-bottom: 24px;
