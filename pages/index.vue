@@ -74,6 +74,16 @@ export default {
       if (this.currentCity.id) {
         params.city_id = this.currentCity.id
       }
+      function getQueryString (name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
+        var r = window.location.search.substr(1).match(reg)
+        if (r != null) return decodeURIComponent(r[2])
+        return null
+      }
+      let code = getQueryString('referer_code')
+      if (code) {
+        params.referer_code = code
+      }
       this.isLoading = true
       queryJobList(params)
         .then(res => res.data.payload)
