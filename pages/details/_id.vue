@@ -49,7 +49,7 @@
     </div>
 
     <div class="btn-commit" v-if="data.jump_type === 2">
-      <nuxt-link class="to-url" to="/contact">开始赚钱</nuxt-link>
+      <a class="to-url" @click="back('/contact')">开始赚钱</a>
     </div>
     <div class="btn-commit" v-else>
       <a class="to-url" :href="data.jump_url">开始赚钱</a>
@@ -343,8 +343,9 @@
         this.is_collapse = !this.is_collapse
       },
 
-      back () {
-        this.$router.push('/')
+      back (path = '/') {
+        path += location.search
+        this.$router.push(path)
       }
     }
   }

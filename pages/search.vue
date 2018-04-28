@@ -148,7 +148,7 @@ export default {
       this.searchJob(this.page)
     },
     backTo () {
-      this.$router.push('/')
+      this.$router.push('/' + location.search)
     }
   }
 }

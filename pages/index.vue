@@ -109,6 +109,7 @@ export default {
       if (params) {
         path += '/' + params
       }
+      path += location.search
       this.$router.push(path)
     }
   }

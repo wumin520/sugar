@@ -41,11 +41,10 @@ export default {
       this.updateCity(item)
       new StorageFactory(window.localStorage).set(KEY_SUGAR_CURRENT_CITY, item)
       this.currentCityName = item.city_name
-      this.$router.push('/')
+      this.$router.push('/' + location.search)
     },
     forward (name) {
-      this.$router.push('/')
-      console.log(this.$router)
+      this.$router.push('/' + location.search)
     }
   }
 }

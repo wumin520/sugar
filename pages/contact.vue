@@ -188,7 +188,7 @@ export default {
     },
 
     back () {
-      this.$router.push('/details/' + this.jobId)
+      this.$router.push('/details/' + this.jobId + location.search)
     }
   }
 }
