@@ -30,24 +30,9 @@ $ npm run dev
 
 Go to [http://localhost:3000](http://localhost:3000)
 
-### 生产环境
-
-``` bash
-# build for production and launch the server
-$ npm run build
-$ npm start
-```
-
-### Generate
-
-``` bash
-# generate a static project
-$ npm run generate
-```
-
 ### 生产环境打包
 
 ``` bash
 # build for production
-$ BACKEND=http://fp02.ops.gaoshou.me:5021 npm run build
+$ npm run beta
 ```

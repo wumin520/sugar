@@ -17,7 +17,7 @@
           </div>
       </section>
       <footer v-if="isEnd">
-        <div>宁波万精油网络科技有限公司</div>
+        <div>宁波万精游网络科技有限公司</div>
         <div>ICP备案：18012003号</div>
       </footer>
     </div>
